@@ -34,12 +34,12 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
-    const { id, dataArrayId, finalArrayData } = req.body;
+    const { finalArrayData } = req.body;
     try {
       const result = await addDataByDataArrayId(
         client,
         "data",
-        { _id: ObjectId(id) },
+        { _id: ObjectId(dataId) },
         { _id: ObjectId(dataArrayId) },
         finalArrayData
       );
