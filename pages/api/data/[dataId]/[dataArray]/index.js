@@ -5,11 +5,8 @@ import {
   addDataByDataArrayId,
 } from "../../../../../helpers/db-util";
 
-import { useRouter } from "next/router";
-
 export default async function handler(req, res) {
-  const router = useRouter();
-  const { dataId, dataArray } = router.query;
+  const { dataId } = req.query;
   console.log(dataId);
   let client;
   try {
@@ -24,7 +21,7 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
       let result = await getDataById(client, "data", { _id: ObjectId(dataId) });
-      res.status(200).json({ message: result });
+      res.status(200).json(result);
     } catch (error) {
       res.status(500).json({ message: error });
     }
