@@ -6,8 +6,7 @@ import {
 } from "../../../../../helpers/db-util";
 
 export default async function handler(req, res) {
-  const { dataId } = req.query;
-  console.log(dataId);
+  const { dataId, dataArrayId } = req.query;
   let client;
   try {
     client = await connectToDatabase();
@@ -18,10 +17,17 @@ export default async function handler(req, res) {
     });
   }
 
+  const findData = {
+    dataArray: { $elemMatch: { _id: ObjectId(dataArrayId) } },
+  };
+
   if (req.method === "GET") {
     try {
-      let result = await getDataById(client, "data", { _id: ObjectId(dataId) });
-      res.status(200).json(result);
+      let result = await getDataById(client, "data", findData);
+      let data = result[0].dataArray.find(
+        (data) => data._id.toString() === dataArrayId
+      );
+      res.status(200).json(data);
     } catch (error) {
       res.status(500).json({ message: error });
     }

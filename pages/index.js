@@ -5,15 +5,16 @@ import { useRef } from "react";
 import { connectToDatabase, getAllData } from "../helpers/db-util";
 import Link from "next/link";
 
+// props is all the data from our backend from getStaticProps
 export default function Home(props) {
   const inputData = useRef();
   const textData = useRef();
   const { dataFromDB } = props;
 
-  // const arrayData = [];
-  // dataFromDB.dataArray.map((data) => arrayData.push(JSON.parse(data)));
-
   // completed
+  /*
+  take in data from form and posts to MongoDB
+  */
   async function submitHandler(event) {
     event.preventDefault();
 
@@ -35,15 +36,6 @@ export default function Home(props) {
     inputData.current.value = "";
     textData.current.value = "";
   }
-
-  // on mount, collect the data from our DB
-  // however, this does not prerender the data
-  // using getStaticProps essentially does this, but with prerendering!
-  // useEffect(() => {
-  //   fetch("/api/data")
-  //     .then((res) => res.json())
-  //     .then((data) => setDataFromDB(data.resultData));
-  // }, []);
 
   return (
     <div className={styles.container}>
