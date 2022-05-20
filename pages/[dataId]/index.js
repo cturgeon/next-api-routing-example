@@ -6,6 +6,8 @@ import {
   getAllDataIds,
 } from "../../helpers/db-util";
 
+import Link from "next/link";
+
 export default function DataPage(props) {
   const [{ _id, text, input, dataArray }] = props.data;
 
@@ -48,7 +50,15 @@ export default function DataPage(props) {
         <p>{input}</p>
         <ul>
           {dataArray.map((data) => (
-            <li>{data}</li>
+            <li key={data._id}>
+              <p>{data._id}</p>
+              <p>{data.input}</p>
+              <p>{data.text}</p>
+              <p>{data.finalArray}</p>
+              <Link href={`/${_id}/${data._id}`}>
+                <button>Go to dataArray Page</button>
+              </Link>
+            </li>
           ))}
         </ul>
       </div>

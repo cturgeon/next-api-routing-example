@@ -31,6 +31,7 @@ export default async function handler(req, res) {
     const { input, text } = req.body;
     // adding a nested array to our data to eventually PUT more data
     const newData = {
+      _id: ObjectId(),
       input,
       text,
       finalArray: [],
@@ -41,7 +42,7 @@ export default async function handler(req, res) {
         client,
         "data",
         { _id: ObjectId(dataId) },
-        JSON.stringify(newData)
+        newData
       );
       res.status(201).json({ message: "updated data", data: result });
     } catch (error) {

@@ -10,6 +10,9 @@ export default function Home(props) {
   const textData = useRef();
   const { dataFromDB } = props;
 
+  // const arrayData = [];
+  // dataFromDB.dataArray.map((data) => arrayData.push(JSON.parse(data)));
+
   // completed
   async function submitHandler(event) {
     event.preventDefault();
@@ -74,7 +77,13 @@ export default function Home(props) {
           <li key={data._id}>
             <p>{data.input}</p>
             <p>{data.text}</p>
-            <p>{data.dataArray}</p>
+            <ul>
+              {data.dataArray.map((arrayData) => (
+                <li key={arrayData._id}>
+                  <p>{arrayData._id}</p>
+                </li>
+              ))}
+            </ul>
             <Link href={`/${data._id}`}>
               <button>Go to specific data page</button>
             </Link>

@@ -41,3 +41,16 @@ export async function updateDataArrayById(client, collection, id, data) {
     .collection(collection)
     .updateOne(id, { $push: { dataArray: data } });
 }
+
+export async function addDataByDataArrayId(
+  client,
+  collection,
+  id,
+  dataArrayId,
+  finalDataArray
+) {
+  const db = client.db();
+  const result = await db
+    .collection(collection)
+    .update({ id: dataArrayId }, { $push: { finalArray: finalDataArray } });
+}
